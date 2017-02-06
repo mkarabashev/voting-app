@@ -1,3 +1,4 @@
+'use strict';
 
 exports.modelValidate = instance => (propName, cb) => instance.validate(
   function validate (err) {

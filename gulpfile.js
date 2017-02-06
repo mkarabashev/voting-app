@@ -8,7 +8,7 @@ const gutil = require('gulp-util') ;
 let task = {};
 
 gulp.task('lint', () =>
-  gulp.src([ '**/*.js', '!node_modules/**' ])
+  gulp.src([ '**/*.js', '**/*.jsx' '!node_modules/**' ])
     .pipe(eslint({ fix: true }))
     .pipe(eslint.format())
     .pipe(eslint.failOnError())

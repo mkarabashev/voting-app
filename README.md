@@ -1,6 +1,17 @@
-## This app is still in development. I've so far set up linting, testing and dev + prod servers
-## TODO
-### isomorphic-rendering
-### websockets
-### facebook authentication
-### rest of the app
+## This app is still in development.
+
+### DONE:
+[x] production server
+[x] development server
+[x] hmr
+[x] back-end linting
+[x] front-end linting
+[x] postcss + css modules
+[x] test modules
+
+### TODO
+[ ] karma + istanbul
+[ ] isomorphic-rendering
+[ ] websockets
+[ ] facebook authentication
+[ ] front-end

@@ -1,6 +1,11 @@
 {
-  "presets": [ "es2015", "react", "stage-0" ],
+  "presets": [ "es2015", "react", "stage-0", "airbnb" ],
   "env": {
+    "development": {
+      "plugins": [
+        "react-hot-loader/babel"
+      ]
+    },
     "production": {
       "plugins": [
         "transform-react-remove-prop-types",

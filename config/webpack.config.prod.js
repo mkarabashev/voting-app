@@ -1,7 +1,10 @@
+'use strict'
+
 const webpack = require('webpack');
 const path = require('path');
 const cleanWebpackPlugin = require('clean-webpack-plugin');
 const htmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const PATH = require('./path');
 
@@ -27,11 +30,22 @@ module.exports = {
         test: /\.jsx?$/,
         loader: 'babel-loader',
         include: PATH.root
+      },
+      {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader'
+        })
+      },
+      {
+        test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+        loader: 'url-loader?limit=100000'
       }
     ]
   },
   resolve: {
-    extensions: [ 'js', 'jsx', 'css' ],
+    extensions: [ '.js', '.jsx', '.css' ],
     alias: {
       react: path.join(process.cwd(), 'node_modules', 'react', 'dist', 'react.min.js'),
       'react-dom': path.join(process.cwd(), 'node_modules', 'react-dom', 'dist', 'react-dom.min.js'),
@@ -42,16 +56,21 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
       names: [ 'vendor', 'manifest' ]
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        warnings: false
-      }
-    }),
     new cleanWebpackPlugin(PATH.dist, {
       root: process.cwd()
     }),
     new htmlWebpackPlugin({
       template: path.join(PATH.root, 'index.html')
+    }),
+    new ExtractTextPlugin({
+      filename: '[name].[chunkHash].css',
+      disable: false,
+      allChunks: true
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: {
+        warnings: false
+      }
     })
   ]
 }

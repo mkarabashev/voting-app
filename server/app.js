@@ -1,3 +1,4 @@
+'use strict';
 
 const express = require('express');
 const morgan = require('morgan');
@@ -43,7 +44,7 @@ module.exports = () => {
 
   // routes
   } else {
-    app.use(express.static(dist))
+    app.use(express.static(dist));
     app.use('/', require('./routes'));
   }
 
