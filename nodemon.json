@@ -1,0 +1,11 @@
+{
+  "verbose": false,
+  "watch": [
+    "server",
+    "config"
+  ],
+  "ignore": [
+    "**/*.test.js"
+  ],
+  "exec": "node -r dotenv/config server/server"
+}

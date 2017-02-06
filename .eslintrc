@@ -1,0 +1,30 @@
+{
+  "extends": "standard",
+  "plugins": [
+      "standard",
+      "promise"
+  ],
+  "parserOptions": {
+    "ecmaScript": 6,
+    "ecmaFeatures": {
+      "jsx": true,
+      "experimentalObjectRestSpread": true
+    }
+  },
+  "env": {
+    "mocha": true
+  },
+  "globals": {
+    "chai": false,
+    "sinon": false,
+    "expect": false,
+    "mongoose": false,
+    "PORT": false,
+    "URL": false
+  },
+  "rules": {
+    "semi": [2, "always"],
+    "strict": [2, "safe"],
+    "no-return-assign": 0
+  }
+}
