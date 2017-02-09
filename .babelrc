@@ -12,6 +12,16 @@
         "transform-react-constant-elements",
         "transform-react-inline-elements"
       ]
+    },
+    "test": {
+      "plugins": [
+        [
+          "istanbul",
+          {
+            "exclude": "**/*.test.js"
+          }
+        ]
+      ]
     }
   }
 }

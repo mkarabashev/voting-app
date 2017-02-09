@@ -1,9 +1,7 @@
-'use strict'
-
 const webpack = require('webpack');
 const path = require('path');
-const cleanWebpackPlugin = require('clean-webpack-plugin');
-const htmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const PATH = require('./path');
@@ -12,7 +10,7 @@ module.exports = {
   devtool: 'source-map',
   context: PATH.root,
   entry: {
-    app: './index.js',
+    app: './index',
     vendor: [
       'react',
       'react-dom'
@@ -56,10 +54,10 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
       names: [ 'vendor', 'manifest' ]
     }),
-    new cleanWebpackPlugin(PATH.dist, {
+    new CleanWebpackPlugin(PATH.dist, {
       root: process.cwd()
     }),
-    new htmlWebpackPlugin({
+    new HtmlWebpackPlugin({
       template: path.join(PATH.root, 'index.html')
     }),
     new ExtractTextPlugin({

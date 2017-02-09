@@ -1,30 +1,44 @@
+// this code sets up the back-end automated testing
 'use strict';
 
 const gulp = require('gulp');
-const mocha = require('gulp-mocha');
-const eslint = require('gulp-eslint');
 const gutil = require('gulp-util') ;
-
-let task = {};
+const eslint = require('gulp-eslint');
+const istanbul = require('gulp-istanbul');
+const mocha = require('gulp-mocha');
 
 gulp.task('lint', () =>
-  gulp.src([ '**/*.js', '**/*.jsx' '!node_modules/**' ])
+  gulp.src([ 'server/**/*.js', 'src/**/*.js', 'src**/*.jsx' ])
     .pipe(eslint({ fix: true }))
     .pipe(eslint.format())
     .pipe(eslint.failOnError())
 );
 
-gulp.task('mocha', task.mocha = () =>
+gulp.task('pre-test', [ 'lint' ], () =>
+  gulp.src([ 'server/**/*.js', '!server/**/*.test.js' ])
+    .pipe(istanbul())
+    .pipe(istanbul.hookRequire())
+);
+
+gulp.task('test:server', [ 'pre-test' ], () =>
   gulp.src(
-    [ './config/test.config.js', '**/*.test.js', '!node_modules/**' ],
+    [ './config/test.config.js', 'server/**/*.test.js' ],
+    { read: false }
+  )
+    .pipe(mocha({ reporter: 'spec' }))
+    .pipe(istanbul.writeReports())
+    .on('error', gutil.log)
+);
+
+gulp.task('test:server_watch', [ 'lint' ], () =>
+  gulp.src(
+    [ './config/test.config.js', 'server/**/*.test.js' ],
     { read: false }
   )
     .pipe(mocha({ reporter: 'spec' }))
     .on('error', gutil.log)
-);
+)
 
-gulp.task('mocha:lint', [ 'lint' ], task.mocha);
-
-gulp.task('watch', [ 'mocha:lint' ], () =>
-  gulp.watch([ '**/*.js', '!node_modules/**' ], [ 'mocha:lint' ])
+gulp.task('watch', [ 'test:server' ], () =>
+  gulp.watch([ 'server/**/*.js' ], [ 'test:server_watch' ])
 );

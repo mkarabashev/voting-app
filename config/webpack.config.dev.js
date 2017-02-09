@@ -1,7 +1,5 @@
-'use strict'
-
 const webpack = require('webpack');
-const htmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const PATH = require('./path');
 
@@ -31,8 +29,7 @@ module.exports = {
           'style-loader',
           'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
           'postcss-loader'
-        ],
-        include: PATH.root
+        ]
       }
     ]
   },
@@ -47,7 +44,7 @@ module.exports = {
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.EnvironmentPlugin([ 'NODE_ENV' ]),
-    new htmlWebpackPlugin({
+    new HtmlWebpackPlugin({
       template: '../src/index.html'
     })
   ]
