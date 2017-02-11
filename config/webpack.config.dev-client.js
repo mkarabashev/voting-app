@@ -1,6 +1,4 @@
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-
 const PATH = require('./path');
 
 const hmrScript = 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000'
@@ -14,7 +12,7 @@ module.exports = {
   output: {
     path: PATH.dist,
     filename: '[name].js',
-    publicPath: PATH.public
+    publicPath: '/'
   },
   module: {
     loaders: [
@@ -43,9 +41,6 @@ module.exports = {
   "plugins": [
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.EnvironmentPlugin([ 'NODE_ENV' ]),
-    new HtmlWebpackPlugin({
-      template: '../src/index.html'
-    })
+    new webpack.EnvironmentPlugin([ 'NODE_ENV' ])
   ]
 }

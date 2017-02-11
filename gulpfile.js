@@ -15,7 +15,7 @@ gulp.task('lint', () =>
 );
 
 gulp.task('pre-test', [ 'lint' ], () =>
-  gulp.src([ 'server/**/*.js', '!server/**/*.test.js' ])
+  gulp.src([ 'server/**/*.js', '!server/**/*.test.js', '!server/*.js' ])
     .pipe(istanbul())
     .pipe(istanbul.hookRequire())
 );

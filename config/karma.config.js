@@ -1,7 +1,7 @@
 module.exports = function(config) {
   config.set({
 
-    basePath: 'src',
+    basePath: '../src',
 
     frameworks: [ 'mocha', 'chai' ],
 
@@ -82,7 +82,7 @@ module.exports = function(config) {
 
     autoWatch: true,
 
-    browsers: [ 'Chrome' ],
+    browsers: [ 'PhantomJS' ],
 
     singleRun: false
   })

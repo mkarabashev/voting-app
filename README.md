@@ -8,10 +8,11 @@
 [x] front-end linting
 [x] postcss + css modules
 [x] test modules
+[x] istanbul coverage
+[x] server side rendering (no react-router)
 
 ### TODO
-[ ] karma + istanbul
-[ ] isomorphic-rendering
+[ ] react-router
 [ ] websockets
 [ ] facebook authentication
 [ ] front-end

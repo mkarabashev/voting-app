@@ -1,5 +1,3 @@
-'use strict';
-
 const Poll = require('./pollSchema');
 const modelValidate = require('../utils').modelValidate;
 

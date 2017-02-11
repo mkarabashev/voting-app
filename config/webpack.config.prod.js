@@ -1,12 +1,26 @@
 const webpack = require('webpack');
 const path = require('path');
+const fs = require('fs');
+const noop = require('node-noop').noop;
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const PATH = require('./path');
 
-module.exports = {
+var nodeModules = {};
+fs.readdirSync('node_modules')
+  .filter(function(x) {
+    return ['.bin'].indexOf(x) === -1;
+  })
+  .forEach(function(mod) {
+    nodeModules[mod] = 'commonjs ' + mod;
+  });
+
+
+
+module.exports = [{
+  name: 'browser',
   devtool: 'source-map',
   context: PATH.root,
   entry: {
@@ -57,9 +71,6 @@ module.exports = {
     new CleanWebpackPlugin(PATH.dist, {
       root: process.cwd()
     }),
-    new HtmlWebpackPlugin({
-      template: path.join(PATH.root, 'index.html')
-    }),
     new ExtractTextPlugin({
       filename: '[name].[chunkHash].css',
       disable: false,
@@ -71,4 +82,55 @@ module.exports = {
       }
     })
   ]
-}
+},
+{
+  name: 'server',
+  devtool: 'source-map',
+  context: PATH.root,
+  entry: {
+    server: '../server/cluster'
+  },
+  target: 'node',
+  node: {
+    __dirname: false
+  },
+  output: {
+    path: path.join(PATH.dist, 'server'),
+    filename: '[name].js',
+    publicPath: '/',
+    libraryTarget: 'commonjs2'
+  },
+  module: {
+    loaders: [
+      {
+        test: /\.jsx?$/,
+        loader: 'babel-loader',
+        include: [PATH.root, path.join(__dirname, '..', 'server')]
+      },
+      {
+        test: /\.css$/,
+        loader: 'css-loader/locals?modules&importLoaders=1!postcss-loader'
+      },
+      {
+        test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+        loader: 'url-loader?limit=100000'
+      }
+    ]
+  },
+  resolve: {
+    extensions: [ '.js', '.jsx', '.css' ]
+  },
+  plugins: [
+    new webpack.EnvironmentPlugin([ 'NODE_ENV' ]),
+    new webpack.NormalModuleReplacementPlugin(/\.css$/, noop),
+    new webpack.IgnorePlugin(/vertx/),
+    new webpack.BannerPlugin(
+      {
+        banner: 'require("source-map-support").install();',
+        raw: true,
+        entryOnly: false
+      }
+    )
+  ],
+  externals: nodeModules
+}]

@@ -1,10 +1,6 @@
-'use strict';
-
 const express = require('express');
 const morgan = require('morgan');
 const webpack = require('webpack');
-const path = require('path');
-
 const dist = require('../config/path').dist;
 
 module.exports = () => {
@@ -20,7 +16,7 @@ module.exports = () => {
 
   // setup hmr in dev mode
   if (process.env.NODE_ENV === 'development') {
-    const webpackConfig = require('../config/webpack.config.dev');
+    const webpackConfig = require('../config/webpack.config.dev-client');
     const webpackDevMiddleware = require('webpack-dev-middleware');
     const webpackHotMiddleware = require('webpack-hot-middleware');
 
@@ -36,16 +32,27 @@ module.exports = () => {
     }));
 
     app.get('*', function (req, res) {
-      var memoryFs = compiler.outputFileSystem;
-      var index = path.join(webpackConfig.output.path, 'index.html');
-      var html = memoryFs.readFileSync(index);
-      res.end(html);
+      res.send(
+        `
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <meta charset="utf-8" />
+            <title>react</title>
+          </head>
+          <body>
+            <div id="app"></div>
+            <script src="/app.js"></script>
+          </body>
+        </html>
+        `
+      );
     });
 
   // routes
   } else {
     app.use(express.static(dist));
-    app.use('/', require('./routes'));
+    app.use('*', require('./routes'));
   }
 
   return app;
