@@ -3,7 +3,6 @@ const path = require('path');
 const fs = require('fs');
 const noop = require('node-noop').noop;
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const PATH = require('./path');
@@ -16,8 +15,6 @@ fs.readdirSync('node_modules')
   .forEach(function(mod) {
     nodeModules[mod] = 'commonjs ' + mod;
   });
-
-
 
 module.exports = [{
   name: 'browser',

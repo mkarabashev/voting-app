@@ -1,37 +1,29 @@
 /*eslint no-unused-vars: 0*/
 
 const router = require('express').Router();
-const renderToString = require('react-dom/server').renderToString;
-import fs from 'fs';
-import App from '../../src/App'
+const React = require('react');
+const match = require('react-router').match;
+const createRoutes = require('react-router').createRoutes;
+const html = require('../render');
+const reactRenderer = require('../render/reactRenderer');
+const AppRouter = require('../../src/router');
+import { renderToString } from 'react-dom/server'
 
-let manifest = {}
-fs.readdirSync('./dist')
-  .forEach(filename => {
-    if (/\.css$/.test(filename)) manifest.css = filename;
-    if (/app\..*\.js$/.test(filename)) manifest.app = filename;
-    if (/vendor\..*\.js$/.test(filename)) manifest.vendor = filename;
-    if (/manifest\..*\.js$/.test(filename)) manifest.manifest = filename;
-  })
-console.log(manifest)
-
-router.get('/', (req, res) => res.send(
-  `
-  <!DOCTYPE html>
-  <html>
-    <head>
-      <meta charset="utf-8" />
-      <link href="/${manifest.css}" rel="stylesheet">
-      <title>react</title>
-    </head>
-    <body>
-      <div id="app">${renderToString(<App />)}</div>
-      <script src="/${manifest.manifest}"></script>
-      <script src="/${manifest.vendor}"></script>
-      <script src="/${manifest.app}"></script>
-    </body>
-  </html>
-  `
-));
+router.get('*', (req, res) => {
+  const routes = createRoutes(AppRouter.default());
+  match({ routes, location: req.url }, (err, redirect, props) => {
+    if (err) {
+      res.status(500).send(err.message);
+    } else if (redirect) {
+      res.redirect(302, redirect.pathname + redirect.search);
+    } else if (props) {
+      const reactString = reactRenderer(props);
+      res.send(html(reactString));
+    } else {
+      res.status(404).send('404 Not Found');
+    }
+    res.end();
+  });
+});
 
 module.exports = router;
