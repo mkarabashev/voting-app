@@ -24,7 +24,9 @@ module.exports = [{
     app: './index',
     vendor: [
       'react',
-      'react-dom'
+      'react-dom',
+      'redux',
+      'react-redux'
     ]
   },
   output: {
@@ -106,7 +108,7 @@ module.exports = [{
       },
       {
         test: /\.css$/,
-        loader: 'css-loader/locals?modules&importLoaders=1!postcss-loader'
+        loader: 'css-loader/locals?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader'
       },
       {
         test: /\.(png|woff|woff2|eot|ttf|svg)$/,

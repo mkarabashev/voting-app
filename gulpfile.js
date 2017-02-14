@@ -8,7 +8,7 @@ const istanbul = require('gulp-istanbul');
 const mocha = require('gulp-mocha');
 
 gulp.task('lint', () =>
-  gulp.src([ 'server/**/*.js', 'src/**/*.js', 'src**/*.jsx' ])
+  gulp.src([ 'server/**/*.js', 'server/**/*.jsx', 'src/**/*.js', 'src**/*.jsx' ])
     .pipe(eslint({ fix: true }))
     .pipe(eslint.format())
     .pipe(eslint.failOnError())

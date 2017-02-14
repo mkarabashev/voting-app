@@ -21,5 +21,4 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
-console.log(manifest);
 module.exports = manifest;

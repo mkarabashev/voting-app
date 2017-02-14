@@ -3,7 +3,6 @@ const morgan = require('morgan');
 const webpack = require('webpack');
 const compression = require('compression');
 const dist = require('../config/path').dist;
-const html = require('./render')();
 
 module.exports = () => {
   const app = express();
@@ -25,10 +24,12 @@ module.exports = () => {
     const webpackConfig = require('../config/webpack.config.dev-client');
     const webpackDevMiddleware = require('webpack-dev-middleware');
     const webpackHotMiddleware = require('webpack-hot-middleware');
+    const html = require('./render/htmlRenderer')();
     const compiler = webpack(webpackConfig);
 
     app.use(webpackDevMiddleware(compiler, {
-      publicPath: webpackConfig.output.publicPath
+      publicPath: webpackConfig.output.publicPath,
+      hot: true
     }));
 
     app.use(webpackHotMiddleware(compiler, {
