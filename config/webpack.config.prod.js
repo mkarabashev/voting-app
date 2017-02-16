@@ -21,12 +21,15 @@ module.exports = [{
   devtool: 'source-map',
   context: PATH.root,
   entry: {
-    app: './index',
+    app: [ 'babel-polyfill', './index' ],
     vendor: [
       'react',
       'react-dom',
+      'react-router',
       'redux',
-      'react-redux'
+      'react-redux',
+      'react-router-redux',
+      'redux-saga'
     ]
   },
   output: {
@@ -87,7 +90,7 @@ module.exports = [{
   devtool: 'source-map',
   context: PATH.root,
   entry: {
-    server: '../server/cluster'
+    server: [ 'babel-polyfill', '../server/cluster' ]
   },
   target: 'node',
   node: {

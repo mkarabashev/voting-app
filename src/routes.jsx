@@ -4,7 +4,7 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
 import Layout from './components/Layout';
-import Home from './components/Home';
+import { Home } from './Home';
 import { List } from './List';
 import About from './components/About';
 import NotFound from './components/NotFound';

@@ -40,7 +40,7 @@ module.exports = () => {
 
     app.get('*', (req, res) => res.send(html));
   } else {
-    // routes
+    // setup production routing
     app.use(express.static(dist));
     app.use('*', require('./routes'));
   }

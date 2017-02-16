@@ -7,7 +7,7 @@ module.exports = {
   devtool: 'eval',
   context: PATH.root,
   entry: {
-    app: [ './index', hmrScript ]
+    app: [ 'babel-polyfill', './index', hmrScript ]
   },
   output: {
     path: PATH.dist,

@@ -1,3 +1,4 @@
+const webpackConf = require('./webpack.config.dev-client');
 module.exports = function(config) {
   config.set({
 
@@ -6,8 +7,9 @@ module.exports = function(config) {
     frameworks: [ 'mocha', 'chai' ],
 
     files: [
+      '../node_modules/babel-polyfill/dist/polyfill.js',
       '**/*.js',
-      '**/*.jsx'
+      '**/*.jsx',
     ],
 
     exclude: [
@@ -20,33 +22,7 @@ module.exports = function(config) {
       '**/*.jsx': [ 'webpack' ]
     },
 
-    webpack: {
-      resolve: {
-        extensions: [ ".js", ".jsx", ".json", ".css" ]
-      },
-      module: {
-        loaders: [
-        {
-          test: /\.jsx?$/,
-          exclude: /node_modules/,
-          loader: 'babel-loader',
-        },
-        {
-          test: /\.css$/,
-          exclude: /node_modules/,
-          use: [
-            'style-loader',
-            'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
-            'postcss-loader'
-          ]
-        },
-        {
-          test: /\.json$/,
-          loader: 'json-loader'
-        }
-        ]
-      }
-    },
+    webpack: webpackConf,
 
     webpackMiddleware: {
       noInfo: true

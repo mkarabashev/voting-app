@@ -9,10 +9,12 @@
 [x] postcss + css modules
 [x] test modules
 [x] istanbul coverage
-[x] server side rendering (no react-router)
+[x] server side rendering
+[x] react-router
+[x] redux + redux-sagas
 
 ### TODO
-[ ] react-router
 [ ] websockets
 [ ] facebook authentication
+[ ] find a lib for data vis suitable for react
 [ ] front-end
