@@ -1,6 +1,10 @@
 const manifest = require('./manifest');
 
-module.exports = function renderPage(reactString = '', preloadedState = null) {
+module.exports = function renderPage(
+  head = { meta: '', title: '' },
+  reactString = '',
+  preloadedState = null
+) {
   const reduxScript =  !preloadedState ? '' : `
     <script>
       window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState)}
@@ -11,9 +15,9 @@ module.exports = function renderPage(reactString = '', preloadedState = null) {
     <!DOCTYPE html>
     <html>
       <head>
-        <meta charset="utf-8" />
+        ${head.meta}
+        ${head.title}
         ${manifest.css}
-        <title>react</title>
       </head>
       <body>
         <div id="app">${reactString}</div>

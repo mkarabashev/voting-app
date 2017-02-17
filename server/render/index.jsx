@@ -1,4 +1,5 @@
 import serialize from 'serialize-javascript';
+import Helmet from 'react-helmet';
 import { createStore } from 'redux';
 
 import htmlRenderer from './htmlRenderer';
@@ -9,8 +10,9 @@ const pageRenderer = props => {
   const store = createStore(rootReducer);
   const preloadedState = serialize(store.getState());
   const reactString = reactRenderer(store, props);
+  const head = Helmet.rewind();
 
-  return htmlRenderer(reactString, preloadedState);
+  return htmlRenderer(head, reactString, preloadedState);
 };
 
 export default pageRenderer;
