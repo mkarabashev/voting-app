@@ -1,4 +1,4 @@
-const fs = require('fs');
+import fs from 'fs';
 
 const makeElement = attributes => filename => `<${attributes}="/${filename}">`;
 const cssString = makeElement('link rel="stylesheet" type="text/css" href');
@@ -21,4 +21,4 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
-module.exports = manifest;
+export default manifest;

@@ -18,6 +18,7 @@ class Layout extends Component {
       { property: "og:type", content: "boilerplate" }
     ];
   }
+
   render() {
     return (
       <div>
@@ -28,6 +29,7 @@ class Layout extends Component {
         <h2 className={styles.colorful}>React Universal App</h2>
         <IndexLink to="/"> Home </IndexLink>
         <Link to="/list"> List </Link>
+        <Link to="/login"> Login </Link>
         <Link to="/about"> About </Link>
         {this.props.children}
       </div>

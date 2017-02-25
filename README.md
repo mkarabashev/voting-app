@@ -12,9 +12,9 @@
 [x] server side rendering
 [x] react-router
 [x] redux + redux-sagas
+[x] facebook authentication
 
 ### TODO
 [ ] websockets
-[ ] facebook authentication
 [ ] find a lib for data vis suitable for react
 [ ] front-end

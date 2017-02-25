@@ -1,0 +1,2 @@
+export const AUTHENTICATED = 'Login/AUTHENTICATED';
+export const AUTHENTICATE1 = 'Login/AUTHENTICATED';

@@ -3,11 +3,17 @@
 import React from 'react';
 import { Router } from 'express';
 import { match, createRoutes } from 'react-router';
+import { createStore } from 'redux';
 
-import pageRenderer from '../render';
-import routes from '../../src/routes';
+import rootReducer from '../../src/rootReducer';
+import pageRenderer from '../render/pageRenderer';
+import makeRoutes from '../../src/routes';
 
+const store = createStore(rootReducer);
 const router = Router();
+const routes = makeRoutes(store);
+
+router.get('/redir', (req, res) => res.redirect('/'))
 
 router.get('*', (req, res) => {
   match({ routes, location: req.url }, (err, redirect, props) => {
@@ -16,7 +22,7 @@ router.get('*', (req, res) => {
     } else if (redirect) {
       res.redirect(302, redirect.pathname + redirect.search);
     } else if (props) {
-      res.send(pageRenderer(props));
+      res.send(pageRenderer(props, store, req.user));
     } else {
       res.status(404).send('404 Not Found');
     }
@@ -24,4 +30,4 @@ router.get('*', (req, res) => {
   });
 });
 
-module.exports = router;
+export default router;

@@ -18,7 +18,7 @@ module.exports = {
   devtool: 'source-map',
   context: PATH.root,
   entry: {
-    server: '../server/server'
+    server: [ 'babel-polyfill', '../server/server' ]
   },
   target: 'node',
   node: {
@@ -39,7 +39,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: 'css-loader/locals?modules&importLoaders=1!postcss-loader'
+        loader: 'css-loader/locals?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader'
       },
       {
         test: /\.(png|woff|woff2|eot|ttf|svg)$/,

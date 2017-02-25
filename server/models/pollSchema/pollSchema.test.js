@@ -1,5 +1,5 @@
-const Poll = require('./pollSchema');
-const modelValidate = require('../utils').modelValidate;
+import Poll from './pollSchema';
+import modelValidate from '../utils';
 
 describe('(models) Poll', () => {
   let pollValidate;

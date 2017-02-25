@@ -1,16 +1,10 @@
-const manifest = require('./manifest');
+import manifest from './manifest';
 
-module.exports = function renderPage(
-  head = { meta: '', title: '' },
+export default function renderPage(
+  preloadedState,
   reactString = '',
-  preloadedState = null
+  head = { meta: '', title: ''}
 ) {
-  const reduxScript =  !preloadedState ? '' : `
-    <script>
-      window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState)}
-    </script>
-  `
-
   return `
     <!DOCTYPE html>
     <html>
@@ -21,7 +15,9 @@ module.exports = function renderPage(
       </head>
       <body>
         <div id="app">${reactString}</div>
-        ${reduxScript}
+        <script>
+          window.__PRELOADED_STATE__ = ${preloadedState}
+        </script>
         ${manifest.manifest}
         ${manifest.vendor}
         ${manifest.app}

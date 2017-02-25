@@ -3,11 +3,13 @@
 import { routerReducer } from 'react-router-redux';
 import { combineReducers } from 'redux';
 
-import { listReducers } from './List';
 import { homeReducers } from './Home';
+import { listReducers } from './List';
+import { loginReducers } from './Login';
 
 export default combineReducers({
   ...homeReducers,
   ...listReducers,
+  ...loginReducers,
   routing: routerReducer
 });

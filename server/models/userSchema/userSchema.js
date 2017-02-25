@@ -1,15 +1,12 @@
-'use strict';
-
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const userSchema = mongoose.Schema({
+  _id: { type: Number, required: true },
   username: {
     type: String,
-    required: true,
-    lowercase: true
+    required: true
   },
-  oauth: { type: String, required: true },
   polls: [{ type: Number, ref: 'Poll' }]
 });
 
-module.exports = mongoose.model('User', userSchema);
+export default mongoose.model('User', userSchema);

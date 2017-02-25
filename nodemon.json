@@ -2,7 +2,6 @@
   "verbose": false,
   "watch": [
     "server",
-    "config",
     ".babelrc"
   ],
   "ignore": [

@@ -9,10 +9,13 @@ import { createStore, compose, applyMiddleware } from 'redux';
 import { Router, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
+import initReactFastclick from 'react-fastclick';
 
 import rootReducer from './rootReducer';
 import routes from './routes';
 import getSagas from './sagas';
+
+initReactFastclick();
 
 // get the current store state from server
 const preloadedState = window.__PRELOADED_STATE__;
@@ -57,7 +60,7 @@ const render = _routes => {
   ReactDOM.render(
     <AppContainer>
       <Provider store={store}>
-        <Router history={history} routes={_routes} key={Math.random()} />
+        <Router history={history} routes={_routes(store)} key={Math.random()} />
       </Provider>
     </AppContainer>,
     mountApp

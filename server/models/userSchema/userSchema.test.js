@@ -1,7 +1,7 @@
 'use strict';
 
-const User = require('./userSchema');
-const modelValidate = require('../utils').modelValidate;
+import User from './userSchema';
+import modelValidate from '../utils';
 
 describe('(models) User', () => {
   let userValidate;
@@ -13,6 +13,6 @@ describe('(models) User', () => {
   });
 
   it('should be invalid if oauth is empty', done => {
-    userValidate('oauth', done);
+    userValidate('_id', done);
   });
 });
