@@ -8,6 +8,7 @@ const babel = require('gulp-babel');
 const sourcemaps = require('gulp-sourcemaps');
 const istanbul = require('gulp-istanbul');
 const mocha = require('gulp-mocha');
+const del = require('del');
 
 gulp.task('lint', () =>
   gulp.src([ 'server/**/*.js', 'server/**/*.jsx', 'src/**/*.js', 'src**/*.jsx' ])
@@ -16,25 +17,34 @@ gulp.task('lint', () =>
     .pipe(eslint.failOnError())
 );
 
-gulp.task('transpile', () =>
+gulp.task('clean', () =>
+  del([ 'tests'])
+);;
+
+gulp.task('transpile', [ 'clean' ], () =>
   gulp.src([ 'server/**/*.js', 'server/**/*.jsx' ])
     .pipe(sourcemaps.init())
     .pipe(babel())
     .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest('dist/tests'))
+    .pipe(gulp.dest('tests'))
 );
 
 gulp.task('pre-test', [ 'lint', 'transpile' ], () =>
-  gulp.src([ 'dist/tests/**/*.js', 'dist/tests/**/*.jsx', '!dist/tests/**/*.test.js' ])
-    .pipe(istanbul({
-      includeUntested: true
-    }))
+  gulp.src([
+    'tests/**/*.js',
+    'tests/**/*.jsx',
+    '!tests/**/*.test.js',
+    '!tests/**/index.js',
+    '!tests/test.config.js',
+    '!tests/models/utils.js'
+  ])
+    .pipe(istanbul())
     .pipe(istanbul.hookRequire())
 );
 
 gulp.task('test:server', [ 'pre-test' ], () =>
   gulp.src(
-    [ './config/test.config.js', 'dist/tests/**/*.test.js' ],
+    [ 'tests/test.config.js', 'tests/**/*.test.js' ],
     { read: false }
   )
     .pipe(mocha({ reporter: 'spec' }))
@@ -42,15 +52,6 @@ gulp.task('test:server', [ 'pre-test' ], () =>
     .on('error', gutil.log)
 );
 
-gulp.task('test:server_watch', [ 'lint', 'transpile' ], () =>
-  gulp.src(
-    [ './config/test.config.js', 'dist/tests/**/*.test.js' ],
-    { read: false }
-  )
-    .pipe(mocha({ reporter: 'spec' }))
-    .on('error', gutil.log)
-)
-
 gulp.task('watch', [ 'test:server' ], () =>
-  gulp.watch([ 'server/**/*.js' ], [ 'test:server_watch' ])
+  gulp.watch([ 'server/**/*.js' ], [ 'test:server' ])
 );

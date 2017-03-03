@@ -1,7 +1,8 @@
 node_modules
 public
-npm-debug.log.*
+npm-debug.log*
 debug.log
 .env
 dist
 coverage
+tests

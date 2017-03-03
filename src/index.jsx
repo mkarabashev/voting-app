@@ -14,6 +14,7 @@ import initReactFastclick from 'react-fastclick';
 import rootReducer from './rootReducer';
 import routes from './routes';
 import getSagas from './sagas';
+import './styles/base';
 
 initReactFastclick();
 

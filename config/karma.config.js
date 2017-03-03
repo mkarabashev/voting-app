@@ -1,4 +1,5 @@
-const webpackConf = require('./webpack.config.dev-client');
+const PATH = require('./path');
+
 module.exports = function(config) {
   config.set({
 
@@ -22,7 +23,43 @@ module.exports = function(config) {
       '**/*.jsx': [ 'webpack' ]
     },
 
-    webpack: webpackConf,
+    webpack: {
+      module: {
+        loaders: [
+          {
+            test: /\.jsx?$/,
+            loader: 'babel-loader',
+          },
+          {
+            test: /\.css$/,
+            exclude: './styles',
+            use: [
+              'style-loader',
+              'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+              'postcss-loader'
+            ]
+          },
+          {
+            test: /\.css$/,
+            include: './styles',
+            use: [
+              'style-loader',
+              'css-loader',
+              'postcss-loader'
+            ]
+          }
+        ]
+      },
+      resolve: {
+        extensions: [ '.js', '.jsx', '.css' ]
+      },
+      externals: {
+        cheerio: 'window',
+        'react/lib/ExecutionEnvironment': true,
+        'react/addons': true,
+        'react/lib/ReactContext': true
+      }
+    },
 
     webpackMiddleware: {
       noInfo: true

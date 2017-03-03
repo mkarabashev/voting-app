@@ -35,7 +35,7 @@ module.exports = () => {
     saveUninitialized: true
   }));
 
-  // setup hmr in dev mode
+  // set up hmr in dev mode
   if (process.env.NODE_ENV === 'development') {
     const webpackConfig = require('../config/webpack.config.dev-client');
     const webpackDevMiddleware = require('webpack-dev-middleware');
@@ -55,10 +55,10 @@ module.exports = () => {
   }
 
   // auth routing
-  app.use('/', require('./routes/auth').default);
+  require('./routes/auth').default(app);
 
   // app routing
-  app.use('*', require('./routes/react').default);
+  require('./routes/reactRoutes').default(app);
 
   return app;
 };

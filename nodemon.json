@@ -2,7 +2,8 @@
   "verbose": false,
   "watch": [
     "server",
-    ".babelrc"
+    ".babelrc",
+    "config"
   ],
   "ignore": [
     "**/*.test.js"

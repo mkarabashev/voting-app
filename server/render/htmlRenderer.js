@@ -12,6 +12,7 @@ export default function renderPage(
         ${head.meta}
         ${head.title}
         ${manifest.css}
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
       </head>
       <body>
         <div id="app">${reactString}</div>

@@ -47,9 +47,18 @@ module.exports = [{
       },
       {
         test: /\.css$/,
+        exclude: './styles',
         loader: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader'
+        })
+      },
+      {
+        test: /\.css$/,
+        include: './styles',
+        loader: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader!postcss-loader'
         })
       },
       {
@@ -112,6 +121,15 @@ module.exports = [{
       {
         test: /\.css$/,
         loader: 'css-loader/locals?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader'
+      },
+      {
+        test: /\.css$/,
+        include: './styles',
+        use: [
+          'style-loader',
+          'css-loader',
+          'postcss-loader'
+        ]
       },
       {
         test: /\.(png|woff|woff2|eot|ttf|svg)$/,

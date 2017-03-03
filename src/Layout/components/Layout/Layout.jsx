@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import { Link, IndexLink } from 'react-router';
+import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import styles from './styles';
+
+import Header from '../../containers/Header';
 
 class Layout extends Component {
   static propTypes = {
@@ -26,11 +27,7 @@ class Layout extends Component {
           titleTemplate={"%s | React"}
           meta={this.meta}
         />
-        <h2 className={styles.colorful}>React Universal App</h2>
-        <IndexLink to="/"> Home </IndexLink>
-        <Link to="/list"> List </Link>
-        <Link to="/login"> Login </Link>
-        <Link to="/about"> About </Link>
+        <Header/>
         {this.props.children}
       </div>
     );
