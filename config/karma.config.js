@@ -1,4 +1,4 @@
-const PATH = require('./path');
+const path = require('path');
 
 module.exports = function(config) {
   config.set({
@@ -25,7 +25,7 @@ module.exports = function(config) {
 
     webpack: {
       module: {
-        loaders: [
+        rules: [
           {
             test: /\.jsx?$/,
             loader: 'babel-loader',
@@ -35,7 +35,15 @@ module.exports = function(config) {
             exclude: './styles',
             use: [
               'style-loader',
-              'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+              {
+                loader: 'css-loader',
+                options: {
+                  modules: true,
+                  camelCase: 'Dashes',
+                  importLoaders: 1,
+                  localIdentName: '[name]__[local]___[hash:base64:5]'
+                }
+              },
               'postcss-loader'
             ]
           },
@@ -51,7 +59,11 @@ module.exports = function(config) {
         ]
       },
       resolve: {
-        extensions: [ '.js', '.jsx', '.css' ]
+        extensions: [ '.js', '.jsx', '.css' ],
+        alias: {
+          HOComponents: path.join(process.cwd(), 'src', 'HOComponents', 'index.js'),
+          components: path.join(process.cwd(), 'src', 'components', 'index.js')
+        }
       },
       externals: {
         cheerio: 'window',

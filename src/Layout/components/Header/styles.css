@@ -3,3 +3,13 @@
 .colorful {
   color: var(--mainColor);
 }
+
+.navbar {
+  margin-left: -40px;
+  list-style-type: none;
+  
+  & li {
+    display: inline;
+    margin-right: 20px;
+  }
+}

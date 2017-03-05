@@ -5,7 +5,7 @@ const noop = require('node-noop').noop;
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-const PATH = require('./path');
+const PATHS = require('./paths');
 
 var nodeModules = {};
 fs.readdirSync('node_modules')
@@ -19,7 +19,7 @@ fs.readdirSync('node_modules')
 module.exports = [{
   name: 'browser',
   devtool: 'source-map',
-  context: PATH.root,
+  context: PATHS.root,
   entry: {
     app: [ 'babel-polyfill', './index' ],
     vendor: [
@@ -33,24 +33,35 @@ module.exports = [{
     ]
   },
   output: {
-    path: PATH.dist,
+    path: PATHS.dist,
     filename: '[name].[chunkhash].js',
     chunkFilename: '[chunkhash].js',
     publicPath: '/'
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.jsx?$/,
         loader: 'babel-loader',
-        include: PATH.root
+        include: PATHS.root
       },
       {
         test: /\.css$/,
         exclude: './styles',
         loader: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader'
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true,
+                camelCase: 'Dashes',
+                importLoaders: 1,
+                localIdentName: '[name]__[local]___[hash:base64:5]'
+              }
+            },
+            'postcss-loader'
+          ]
         })
       },
       {
@@ -72,6 +83,8 @@ module.exports = [{
     alias: {
       react: path.join(process.cwd(), 'node_modules', 'react', 'dist', 'react.min.js'),
       'react-dom': path.join(process.cwd(), 'node_modules', 'react-dom', 'dist', 'react-dom.min.js'),
+      HOComponents: path.join(process.cwd(), 'src', 'HOComponents', 'index.js'),
+      components: path.join(process.cwd(), 'src', 'components', 'index.js')
     }
   },
   plugins: [
@@ -79,7 +92,7 @@ module.exports = [{
     new webpack.optimize.CommonsChunkPlugin({
       names: [ 'vendor', 'manifest' ]
     }),
-    new CleanWebpackPlugin(PATH.dist, {
+    new CleanWebpackPlugin(PATHS.dist, {
       root: process.cwd()
     }),
     new ExtractTextPlugin({
@@ -97,7 +110,7 @@ module.exports = [{
 {
   name: 'server',
   devtool: 'source-map',
-  context: PATH.root,
+  context: PATHS.root,
   entry: {
     server: [ 'babel-polyfill', '../server/cluster' ]
   },
@@ -106,27 +119,38 @@ module.exports = [{
     __dirname: false
   },
   output: {
-    path: path.join(PATH.dist, 'server'),
+    path: path.join(PATHS.dist, 'server'),
     filename: '[name].js',
     publicPath: '/',
     libraryTarget: 'commonjs2'
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.jsx?$/,
         loader: 'babel-loader',
-        include: [PATH.root, path.join(__dirname, '..', 'server')]
+        include: [PATHS.root, path.join(__dirname, '..', 'server')]
       },
       {
         test: /\.css$/,
-        loader: 'css-loader/locals?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader'
+        exclude: './styles',
+        use: [
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              camelCase: 'Dashes',
+              importLoaders: 1,
+              localIdentName: '[name]__[local]___[hash:base64:5]'
+            }
+          },
+          'postcss-loader'
+        ]
       },
       {
         test: /\.css$/,
         include: './styles',
         use: [
-          'style-loader',
           'css-loader',
           'postcss-loader'
         ]
@@ -138,7 +162,11 @@ module.exports = [{
     ]
   },
   resolve: {
-    extensions: [ '.js', '.jsx', '.css' ]
+    extensions: [ '.js', '.jsx', '.css' ],
+    alias: {
+      HOComponents: path.join(process.cwd(), 'src', 'HOComponents', 'index.js'),
+      components: path.join(process.cwd(), 'src', 'components', 'index.js')
+    }
   },
   plugins: [
     new webpack.EnvironmentPlugin([ 'NODE_ENV' ]),

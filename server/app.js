@@ -6,7 +6,7 @@ import cookieParser from 'cookie-parser';
 import { urlencoded } from 'body-parser';
 import session from 'express-session';
 
-import { dist } from '../config/path';
+import { dist } from '../config/paths';
 
 module.exports = () => {
   const app = express();

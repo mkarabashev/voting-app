@@ -5,11 +5,11 @@ import { combineReducers } from 'redux';
 
 import { homeReducers } from './Home';
 import { listReducers } from './List';
-import { loginReducers } from './Login';
+import { authReducers } from './Auth';
 
 export default combineReducers({
   ...homeReducers,
   ...listReducers,
-  ...loginReducers,
+  ...authReducers,
   routing: routerReducer
 });

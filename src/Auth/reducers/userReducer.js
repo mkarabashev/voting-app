@@ -1,9 +1,7 @@
-import { AUTHENTICATED, DEAUTHENTICATED } from '../constants';
-
-const defaultState = { authenticated: false, user: null, polls: [] };
+import { AUTHENTICATED } from '../constants';
 
 export default function userReducer(
-  state = defaultState,
+  state = { authenticated: false, user: null, polls: [] },
   action
 ) {
   switch (action.type) {
@@ -13,8 +11,6 @@ export default function userReducer(
         user: action.user,
         polls: action.polls
       };
-    case DEAUTHENTICATED:
-      return defaultState;
     default:
       return state;
   }

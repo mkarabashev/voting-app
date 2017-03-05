@@ -3,7 +3,7 @@ import Helmet from 'react-helmet';
 
 import htmlRenderer from './htmlRenderer';
 import reactRenderer from './reactRenderer';
-import { actions } from '../../src/Login';
+import { actions } from '../../src/Auth';
 
 const pageRenderer = (props, store, user) => {
   let html;
@@ -23,7 +23,7 @@ const pageRenderer = (props, store, user) => {
     html = htmlRenderer(preloadedState, reactString, head);
   } else {
     // client rendering in dev
-    html = htmlRenderer(preloadedState);    
+    html = htmlRenderer(preloadedState);
   }
 
   return html;

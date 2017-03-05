@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const fs = require('fs');
 const noop = require('node-noop').noop;
-const PATH = require('./path');
+const PATHS = require('./paths');
 
 var nodeModules = {};
 fs.readdirSync('node_modules')
@@ -16,7 +16,7 @@ fs.readdirSync('node_modules')
 module.exports = {
   name: 'server',
   devtool: 'source-map',
-  context: PATH.root,
+  context: PATHS.root,
   entry: {
     server: [ 'babel-polyfill', '../server/server' ]
   },
@@ -25,27 +25,38 @@ module.exports = {
     __dirname: false
   },
   output: {
-    path: path.join(PATH.dist, 'server'),
+    path: path.join(PATHS.dist, 'server'),
     filename: '[name].dev.js',
     publicPath: '/',
     libraryTarget: 'commonjs2'
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.jsx?$/,
         loader: 'babel-loader',
-        include: [PATH.root, path.join(__dirname, '..', 'server')]
+        include: [PATHS.root, path.join(__dirname, '..', 'server')]
       },
       {
         test: /\.css$/,
-        loader: 'css-loader/locals?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader'
+        exclude: './styles',
+        use: [
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              camelCase: 'Dashes',
+              importLoaders: 1,
+              localIdentName: '[name]__[local]___[hash:base64:5]'
+            }
+          },
+          'postcss-loader'
+        ]
       },
       {
         test: /\.css$/,
         include: './styles',
         use: [
-          'style-loader',
           'css-loader',
           'postcss-loader'
         ]
@@ -57,7 +68,11 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: [ '.js', '.jsx', '.css' ]
+    extensions: [ '.js', '.jsx', '.css' ],
+    alias: {
+      HOComponents: path.join(process.cwd(), 'src', 'HOComponents', 'index.js'),
+      components: path.join(process.cwd(), 'src', 'components', 'index.js')
+    }    
   },
   plugins: [
     new webpack.EnvironmentPlugin([ 'NODE_ENV' ]),

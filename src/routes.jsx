@@ -6,7 +6,7 @@ import { Route, IndexRoute } from 'react-router';
 import { Layout } from './Layout';
 import { Home } from './Home';
 import { List } from './List';
-import { Login, Logout } from './Login';
+import { Login, Logout } from './Auth';
 import About from './components/About';
 import NotFound from './components/NotFound';
 
