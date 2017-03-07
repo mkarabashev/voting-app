@@ -1,12 +1,22 @@
 import mongoose from 'mongoose';
-import app from './app';
+import http from 'http';
+import io  from 'socket.io';
 
+import app from './app';
 import './models';
 
 const PORT = parseInt(process.env.PORT, 10) || 8080;
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1/test';
 
-const server = app();
+const server = http.createServer(app());
+const wss = io(server);
+wss.on('connection', function(client) {
+  client.on('join', data => {
+    console.log(data);
+    client.emit('message', 'hello from server');
+  });
+  client.on('disconnect', () => client.emit('message', 'u still there?'))
+});
 
 mongoose.Promise = global.Promise;
 const options = {

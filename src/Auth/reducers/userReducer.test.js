@@ -1,6 +1,5 @@
 import userReducer from './userReducer';
 import { authenticated } from '../actions';
-import { AUTHENTICATED } from '../constants';
 
 describe('(reducers) userReducer', () => {
   it('should return default state', () => {

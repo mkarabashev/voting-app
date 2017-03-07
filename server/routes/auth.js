@@ -17,7 +17,7 @@ export default function authRoutes(app) {
   passport.use(new Strategy({
       clientID: process.env.CLIENT_ID || '0123456789',
       clientSecret: process.env.CLIENT_SECRET || 'test_secret',
-      callbackURL: 'http://localhost:3001/login/facebook/return'
+      callbackURL: `${process.env.URL}/login/facebook/return`
     },
     (accessToken, refreshToken, profile, done) => {
       User.findOneAndUpdate(

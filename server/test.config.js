@@ -2,6 +2,7 @@
 
 // env
 process.env.NODE_ENV = 'test';
+require('dotenv').config()
 
 // modules
 global.mongoose = require('mongoose');
@@ -21,5 +22,5 @@ require('sinon-mongoose');
 require('sinon-as-promised');
 
 // constants
-global.PORT = 3001;
-global.URL = `http://127.0.0.1:${PORT}`;
+global.PORT = parseInt(process.env.PORT, 10) || 8080;
+global.URL = process.env.URL || 'http://localhost:8080';

@@ -11,7 +11,7 @@ describe('(routes) auth', () => {
     fbPath,
     fbUrl,
     server;
-    
+
   beforeEach(() => {
     app = express();
     require('./auth').default(app);
@@ -24,8 +24,8 @@ describe('(routes) auth', () => {
   it('should redirect to fb auth when user goes to /login/facebook', done => {
     // intercepts the call to fb
     fbUrl = 'www.facebook.com';
-    fbCallback = 'http%3A%2F%2Flocalhost%3A3001%2Flogin%2Ffacebook%2Freturn';
-    fbClientId = '0123456789';
+    fbCallback = `http%3A%2F%2Flocalhost%3A${PORT}%2Flogin%2Ffacebook%2Freturn`;
+    fbClientId = process.env.CLIENT_ID || '0123456789';
     fbPath = `/dialog/oauth?response_type=code&redirect_uri=${fbCallback}&client_id=${fbClientId}`;
     fakeFbApi = nock(`https://${fbUrl}`);
     fakeFbApi
