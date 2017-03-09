@@ -1,0 +1,57 @@
+@import '../../../styles/common.css';
+
+.bar {
+  width: 30px;
+  height: 3px;
+  margin: 5px 0;
+  background: var(--textDarkBg);
+}
+
+.menu {
+  position: relative;
+}
+
+.humburger {
+  height: 50px;
+  width: 50px;
+  padding: 10px;
+}
+
+.menu-container {
+  position: absolute;
+  bottom: -150px;
+  right: -170px;
+  font-weight: 500;
+  background: white;
+  box-shadow: var(--shadow);
+  padding: 15px 50px 15px 10px;
+
+  & ul {
+    list-style: none;
+    margin-left: -40px;
+  }
+
+  & li {
+    margin: 20px 0;
+  }
+
+  & :any-link {
+    font-size: 1.2em;
+    text-decoration: none;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: grey;
+  }
+
+  & :any-link:--enter {
+    color: var(--textLightBg);
+  }
+}
+
+.open {
+  display: block;
+}
+
+.closed {
+  display: none;
+}

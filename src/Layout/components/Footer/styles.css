@@ -1,0 +1,23 @@
+@import '../../../styles/common.css';
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 30px;
+  padding: 8px 15px 0 0;
+  background: var(--darker);
+  color: var(--darkest);
+
+  & :any-link {
+    color: var(--darkest);
+  }
+
+  & :any-link:hover {
+    color: var(--textDarkBg);
+  }
+}
+
+.content {
+  float: right;
+}

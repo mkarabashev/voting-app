@@ -1,15 +1,49 @@
-@import '../../../theme.css';
+@import '../../../styles/common.css';
 
-.colorful {
-  color: var(--mainColor);
+.header {
+  padding: 0;
+  background: var(--mainColor);
+  color: var(--textDarkBg);
+  box-shadow: var(--shadow);
 }
 
-.navbar {
-  margin-left: -40px;
-  list-style-type: none;
-  
-  & li {
-    display: inline;
-    margin-right: 20px;
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.title {
+  font-weight: 500;
+  font-size: 2.3em;
+}
+
+.space-sm {
+  margin-right: 5px;
+}
+
+.navigation {
+  margin: 24px 0 10px -40px;
+}
+
+@media (--small-screen) {
+  .flex {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+  }
+
+  .navigation {
+    margin: 23px 20px 0 10px;
+  }
+}
+
+@media (--medium-screen) {
+  .flex {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .navigation {
+    margin-top: 0;
   }
 }

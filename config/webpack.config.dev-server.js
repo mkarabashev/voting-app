@@ -72,7 +72,7 @@ module.exports = {
     alias: {
       HOComponents: path.join(process.cwd(), 'src', 'HOComponents', 'index.js'),
       components: path.join(process.cwd(), 'src', 'components', 'index.js')
-    }    
+    }
   },
   plugins: [
     new webpack.EnvironmentPlugin([ 'NODE_ENV' ]),

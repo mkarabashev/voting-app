@@ -1,0 +1,5 @@
+@import './theme.css';
+
+@custom-selector :--enter :hover, :focus, :active;
+@custom-media --medium-screen (width > 460px) and (width <= 900px);
+@custom-media --small-screen (width <= 460px);

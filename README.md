@@ -13,8 +13,8 @@
 [x] react-router
 [x] redux + redux-sagas
 [x] facebook authentication
+[x] websockets
 
 ### TODO
-[ ] websockets
 [ ] find a lib for data vis suitable for react
 [ ] front-end

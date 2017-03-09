@@ -1,0 +1,9 @@
+:root {
+  --mainColor: #26a69a;
+  --darker: #00897b;
+  --darkest: #004d40;
+  --accent: #69f0ae;
+  --textLightBg: black;
+  --textDarkBg: white;
+  --shadow: 0px 1px 1px 1px rgba(7,18,16,0.5);
+}

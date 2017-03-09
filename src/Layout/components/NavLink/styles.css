@@ -1,0 +1,13 @@
+@import '../../../styles/common.css';
+
+.active {
+  color: var(--textDarkBg)!important;
+  border-bottom: 1px solid var(--textDarkBg);
+  padding-bottom: 5px;
+}
+
+@media (--small-screen) {
+  .active {
+    color: var(--textLightBg)!important;
+  }
+}

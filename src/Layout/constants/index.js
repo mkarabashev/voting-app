@@ -1,0 +1,3 @@
+const WINDOW_SIZE_CHANGED = 'Layout/WINDOW_SIZE_CHANGED';
+
+export default WINDOW_SIZE_CHANGED;

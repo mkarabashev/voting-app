@@ -1,4 +1,7 @@
 import Header from './containers/Header';
-import Layout from './components/Layout';
+import NavLink from './components/NavLink';
+import AuthLink from './components/AuthLink';
+import Layout from './containers/Layout';
+import layoutReducers from './reducers';
 
-export { Header, Layout };
+export { NavLink, AuthLink, Header, Layout, layoutReducers };
